@@ -1,0 +1,92 @@
+type SdUser = 
+ record {
+   createdAt: text;
+   email: text;
+   id: text;
+   lastLogin: text;
+   name: text;
+   password: text;
+   phone: text;
+   role: text;
+   status: text;
+ };
+type SdPartRequest = 
+ record {
+   cancelledAt: text;
+   cancelledBy: text;
+   cancelledByName: text;
+   caseDbId: text;
+   caseId: text;
+   companyName: text;
+   customerName: text;
+   id: text;
+   issuedAt: text;
+   issuedBy: text;
+   issuedByName: text;
+   message: text;
+   partCode: text;
+   partName: text;
+   partPhotoUrl: text;
+   priority: text;
+   productType: text;
+   rejectedAt: text;
+   rejectedBy: text;
+   rejectedByName: text;
+   rejectedReason: text;
+   requestedAt: text;
+   requestedBy: text;
+   requestedByName: text;
+   status: text;
+   technicianId: text;
+ };
+service : {
+  approveSdUser: (userId: text) -> ();
+  cancelSdPartRequest: (id: text, cancelledBy: text, cancelledByName: 
+   text, cancelledAt: text) -> ();
+  clearAllData: () -> ();
+  createSdPartRequest: (id: text, caseId: text, caseDbId: text, customerName:
+   text, partName: text, partCode: text, partPhotoUrl: text, requestedBy:
+   text, requestedByName: text, requestedAt: text, message: text,
+   productType: text, companyName: text, priority: text) -> (SdPartRequest);
+  createSdUser: (id: text, name: text, email: text, password: text, phone:
+   text, role: text, status: text, createdAt: text) -> (SdUser);
+  deleteSdPartRequest: (id: text) -> ();
+  deleteSdUser: (userId: text) -> ();
+  editSdUser: (userId: text, name: text, email: text, phone: text, role:
+   text, password: text) -> ();
+  getAIInsights: (contextJson: text) -> (text);
+  getAIInsightsCache: () -> (text) query;
+  getAIInsightsCacheTime: () -> (int) query;
+  getMidnightTaskRanDate: () -> (text) query;
+  getSdAppDataJson: () -> (text) query;
+  getSdCasesJson: () -> (vec text) query;
+  getSdInventoryJson: () -> (text) query;
+  getSdNoticesJson: () -> (vec text) query;
+  getSdPartRequests: () -> (vec SdPartRequest) query;
+  getSdPartRequestsJson: () -> (text) query;
+  getSdPartRequestsV2Json: () -> (text) query;
+  getSdUsers: () -> (vec SdUser) query;
+  getSdUsersJson: () -> (text) query;
+  initSeedUsers: () -> ();
+  issueSdPartRequest: (id: text, technicianId: text, issuedAt: text,
+   issuedBy: text, issuedByName: text) -> ();
+  loginSdUser: (email: text, password: text) -> (opt SdUser) query;
+  rejectSdPartRequest: (id: text, reason: text, rejectedAt: text, rejectedBy:
+   text, rejectedByName: text) -> ();
+  rejectSdUser: (userId: text) -> ();
+  setAIInsightsCache: (data: text) -> ();
+  setAIInsightsCacheTime: (ts: int) -> ();
+  setMidnightTaskRanDate: (date: text) -> ();
+  setSdAppData: (jsonBlob: text) -> ();
+  setSdAppDataJson: (jsonBlob: text) -> ();
+  setSdCases: (jsonBlob: text) -> ();
+  setSdCasesJson: (json: vec text) -> ();
+  setSdInventory: (jsonBlob: text) -> ();
+  setSdInventoryJson: (jsonBlob: text) -> ();
+  setSdNotices: (jsonBlob: text) -> ();
+  setSdNoticesJson: (json: vec text) -> ();
+  setSdPartRequestsJson: (jsonBlob: text) -> ();
+  setSdPartRequestsV2Json: (json: text) -> ();
+  setSdUsersJson: (json: text) -> ();
+  updateSdUserLogin: (userId: text, loginTime: text) -> ();
+}

@@ -1,0 +1,114 @@
+// Version: 1.0.0
+type HttpHeader__837997805 = {name : Text; value : Text};
+type HttpMethod__1061600257 = {#get; #head; #post};
+type HttpRequestArgs__893152371 =
+  {
+    body : ?Blob;
+    headers : [HttpHeader__837997805];
+    is_replicated : ?Bool;
+    max_response_bytes : ?Nat64;
+    method : HttpMethod__1061600257;
+    transform :
+      ?{
+         context : Blob;
+         function :
+           shared query {
+                          context : Blob;
+                          response : HttpRequestResult__1015898249
+                        } ->
+             async HttpRequestResult__1015898249
+       };
+    url : Text
+  };
+type HttpRequestResult__1015898249 =
+  {body : Blob; headers : [HttpHeader__837997805]; status : Nat};
+type SdPartRequestV1__781521846 =
+  {
+    caseDbId : Text;
+    caseId : Text;
+    companyName : Text;
+    customerName : Text;
+    id : Text;
+    issuedAt : Text;
+    issuedBy : Text;
+    issuedByName : Text;
+    message : Text;
+    partCode : Text;
+    partName : Text;
+    partPhotoUrl : Text;
+    productType : Text;
+    rejectedAt : Text;
+    rejectedBy : Text;
+    rejectedByName : Text;
+    rejectedReason : Text;
+    requestedAt : Text;
+    requestedBy : Text;
+    requestedByName : Text;
+    status : Text;
+    technicianId : Text
+  };
+type SdPartRequest__655790608 =
+  {
+    cancelledAt : Text;
+    cancelledBy : Text;
+    cancelledByName : Text;
+    caseDbId : Text;
+    caseId : Text;
+    companyName : Text;
+    customerName : Text;
+    id : Text;
+    issuedAt : Text;
+    issuedBy : Text;
+    issuedByName : Text;
+    message : Text;
+    partCode : Text;
+    partName : Text;
+    partPhotoUrl : Text;
+    priority : Text;
+    productType : Text;
+    rejectedAt : Text;
+    rejectedBy : Text;
+    rejectedByName : Text;
+    rejectedReason : Text;
+    requestedAt : Text;
+    requestedBy : Text;
+    requestedByName : Text;
+    status : Text;
+    technicianId : Text
+  };
+type SdUser__694147194 =
+  {
+    createdAt : Text;
+    email : Text;
+    id : Text;
+    lastLogin : Text;
+    name : Text;
+    password : Text;
+    phone : Text;
+    role : Text;
+    status : Text
+  };
+actor {
+  stable IC :
+    actor {
+      http_request :
+        shared HttpRequestArgs__893152371 ->
+          async HttpRequestResult__1015898249
+    };
+  stable var aiInsightsCache : Text;
+  stable var aiInsightsCacheTime : Int;
+  stable var midnightTaskRanDate : Text;
+  stable var sdAppDataJson : Text;
+  stable var sdCasesJson : [Text];
+  stable var sdInventoryJson : Text;
+  stable var sdNoticesJson : [Text];
+  stable var sdPartReqCounter : Nat;
+  stable var sdPartReqMigrated : Bool;
+  stable var sdPartRequests : [SdPartRequestV1__781521846];
+  stable var sdPartRequestsJson : Text;
+  stable var sdPartRequestsV2 : [SdPartRequest__655790608];
+  stable var sdPartRequestsV2JsonBlob : Text;
+  stable var sdUserCounter : Nat;
+  stable var sdUsers : [SdUser__694147194];
+  stable var sdUsersJsonBlob : Text
+};
